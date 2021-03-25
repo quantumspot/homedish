@@ -5,7 +5,7 @@ const HOMEDISH_URI = require('./keys');
 
 // create a new pool here using the connection string above
 const pool = new Pool({
-  connectionString: 'postgres://ebjuozbx:ftPff-zNlFsTxMgEQ1n7u_xK7tPCrI3W@kashin.db.elephantsql.com:5432/ebjuozbx'
+  connectionString: HOMEDISH_URI
 });
 
 module.exports = {
@@ -37,5 +37,32 @@ module.exports = {
 //  rating 
 //  servings_left
 //  FOREIGN KEY cook_id
-//    REFERENCES (cooks)
+//    REFERENCES cook_id(cooks)
 //  
+// CREATE TABLE recipes (
+//   recipe_id serial PRIMARY KEY,
+//   title VARCHAR(50) NOT NULL,
+//   description VARCHAR(255) NOT NULL,
+//   allergens VARCHAR(255) NOT NULL,
+//   country_of_origin VARCHAR(50),
+//   meal_type VARCHAR(50),
+//   price VARCHAR(10),
+//   rating INT,
+//   servings_left INT
+// );
+
+// FOREIGN KEY (cook_id)
+//     REFERENCES cook_id(cooks)
+
+// CREATE TABLE Cooks (
+//   cook_id serial PRIMARY KEY,
+//   FOREIGN KEY (user_id)
+//     REFERENCES user_id(Users) NOT NULL,
+// )
+
+// CREATE TABLE Cooks (
+//   cook_id INT PRIMARY KEY,
+//   user_id INT,
+//   FOREIGN KEY (user_id)
+//     REFERENCES Users(user_id)
+// );
