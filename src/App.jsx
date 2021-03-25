@@ -1,10 +1,11 @@
 import React from 'react';
+import MainContainer from './containers/MainContainer.jsx';
 
 const App = () => {
 
   return (
     <>
-      <h1>Hello Homedish</h1>
+      <MainContainer/>
     </>
   )
 }
