@@ -9,5 +9,11 @@ router.post('/signup',
   }
 );
 
+// router.post('/add-profile-img', 
+//   userController.addProfileImg,
+//   (req, res) => {
+//     res.status(200).json({})
+//   }
+// );
 
 module.exports = router;
