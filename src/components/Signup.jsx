@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import TextField from "@material-ui/core/TextField";
+import Input from "@material-ui/core/Input";
+import Button from "@material-ui/core/Button";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -12,23 +15,27 @@ const Signup = () => {
   const [zip, setZip] = useState("");
   const [allergies, setAllergies] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
+  const [userType, setUserType] = useState("Eater");
+
 
   return (
     <>
+      <Button onClick={() => setUserType("Eater")}>Eat</Button>
+      <Button onClick={() => setUserType("Cook")}>Cook</Button>
       <form>
         <p>
-          <label name="firstname">First Name</label>
-          <input
+          <TextField
             type="text"
             id="firstname"
+            label="First Name"
             name="firstname"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </p>
         <p>
-          <label name="lastname">Last Name</label>
-          <input
+          <TextField
+            label="Last Name"
             type="text"
             id="lastname"
             name="lastname"
@@ -37,8 +44,8 @@ const Signup = () => {
           />
         </p>
         <p>
-          <label name="email">Email</label>
-          <input
+          <TextField
+            label="Email"
             type="text"
             id="email"
             name="email"
@@ -47,8 +54,8 @@ const Signup = () => {
           />
         </p>
         <p>
-          <label name="password">Password</label>
-          <input
+          <TextField
+            label="Password"
             type="password"
             id="password"
             name="password"
@@ -57,8 +64,8 @@ const Signup = () => {
           />
         </p>
         <p>
-          <label name="re-enter">Re-enter Password</label>
-          <input
+          <TextField
+            label="Re-enter Password"
             type="password"
             id="re-enter"
             name="re-enter"
@@ -67,8 +74,8 @@ const Signup = () => {
           />
         </p>
         <p>
-          <label name="street">Address, Street</label>
-          <input
+          <TextField
+            label="Street Address"
             type="text"
             id="street"
             name="street"
@@ -77,8 +84,8 @@ const Signup = () => {
           />
         </p>
         <p>
-          <label name="city">City</label>
-          <input
+          <TextField
+            label="City"
             type="text"
             id="city"
             name="city"
@@ -87,8 +94,8 @@ const Signup = () => {
           />
         </p>
         <p>
-          <label name="zip">Zip Code</label>
-          <input
+          <TextField
+            label="Zipcode"
             type="text"
             id="zip"
             name="zip"
@@ -97,8 +104,8 @@ const Signup = () => {
           />
         </p>
         <p>
-          <label name="state">State</label>
-          <input
+          <TextField
+            label="State"
             type="text"
             id="state"
             name="state"
@@ -107,8 +114,8 @@ const Signup = () => {
           />
         </p>
         <p>
-          <label name="allergies">Allergies</label>
-          <input
+          <TextField
+            label="Allergies"
             type="text"
             id="allergies"
             name="allergies"
@@ -116,18 +123,25 @@ const Signup = () => {
             onChange={(e) => setAllergies(e.target.value)}
           />
         </p>
+        {userType === "Cook" && <p>
+          <TextField label="test cook"/>
+        </p>}
         <p>
-          <label name="profile-picture">Profile Picture</label>
-          <input
+          <Input
             type="file"
             id="profile-picture"
             name="profile-picture"
             // value={profilePicture}
             onChange={(e) => setProfilePicture(e.target.files[0])}
           />
-          {profilePicture && <img src={URL.createObjectURL(profilePicture)}/>}
+          {profilePicture && (
+            <img
+              src={URL.createObjectURL(profilePicture)}
+              style={{ width: "200px", height: "200px" }}
+            />
+          )}
         </p>
-        <button>Sign Up</button>
+        <Button color="primary">Sign Up</Button>
       </form>
     </>
   );
