@@ -1,11 +1,15 @@
 const path = require('path');
 const express = require('express');
+const userController = require('./controllers/userController');
 const app = express();
 
 const PORT = 3000;
+const apiRouter = require('./routes/api');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api', apiRouter);
 
 app.use('/', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
