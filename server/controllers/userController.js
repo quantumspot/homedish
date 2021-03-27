@@ -11,8 +11,8 @@ userController.createUser = (req, res, next) => {
 
   db
     .query(text, val)
-    .then(res => {
-      console.log(res.rows[0])
+    .then(data => {
+      res.locals.user = data.rows[0];
     })
     .catch(e => {next({
       log: `userController.createUser: ${e}`,
@@ -42,7 +42,11 @@ userController.getUser = (req, res, next) => {
     ).then(() => next());
 }
 
-// userController.addAddress = (req, res, next) => {
+// userController.updateUser = (req, res, next) => {
+//   const { name, email_address, address, allergies } = req.body;
+
+//   const text = `UPDATE Users SET address = $1 WHERE Users.email_address = $2;`
+//   const vals = [`${address}`, ]
 
 // }
 
