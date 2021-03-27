@@ -7,35 +7,35 @@ const RecipeCard = () => {
         <>
             <form>
                 <p>
-                <TextField id="outlined-basic" label="Name" variant="outlined" />
+                    <TextField id="outlined-basic" label="Name" variant="outlined" />
                 </p>
                 <p>
-                <TextField
-                    id="outlined-multiline-static"
-                    label="Description"
-                    multiline
-                    rows={4}
-                    // defaultValue="Default Value"
-                    variant="outlined"
-                    />
+                    <TextField id="outlined-basic" label="Meal Type" variant="outlined" />
                 </p>
                 <p>
-                <TextField id="outlined-basic" label="Allergies" variant="outlined" />
+                    <TextField id="outlined-basic" label="Country of Origin" variant="outlined" />
                 </p>
                 <p>
-                <TextField id="outlined-basic" label="Diets" variant="outlined" />
+                    <TextField id="outlined-basic" label="Allergies" variant="outlined" />
                 </p>
                 <p>
-                <TextField id="outlined-basic" label="Country of Origin" variant="outlined" />
+                    <TextField id="outlined-basic" label="Diets" variant="outlined" />
                 </p>
                 <p>
-                <TextField id="outlined-basic" label="Meal Type" variant="outlined" />
+                    <TextField id="outlined-basic" label="Servings Available" variant="outlined" />
                 </p>
                 <p>
-                <TextField id="outlined-basic" label="Price" variant="outlined" />
+                    <TextField id="outlined-basic" label="Price per Serving" variant="outlined" />
                 </p>
                 <p>
-                <TextField id="outlined-basic" label="Servings Available" variant="outlined" />
+                    <TextField
+                        id="outlined-multiline-static"
+                        label="Description"
+                        multiline
+                        rows={4}
+                        // defaultValue="Default Value"
+                        variant="outlined"
+                        />
                 </p>
                 <button>Sign Up</button>
             </form>
