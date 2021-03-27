@@ -4,16 +4,15 @@ const db = require('../models/homeModels');
 const userController = {};
 
 userController.createUser = (req, res, next) => {
-  console.log(req.body);
   const { name, email_address, password, address, allergies } = req.body;
 
-  const text = 'INSERT INTO Users(name, email_address, password, address, allergies, created_on, last_login) VALUES($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING *';
-  const values = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${allergies}`];
+  const text = 'INSERT INTO Users(name, email_address, password, address, allergies, profile_img, created_on, last_login) VALUES($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING *';
+  const val = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${allergies}`, ''];
 
   db
-    .query(text, values)
+    .query(text, val)
     .then(res => {
-      console.log("createUser line 16: ", res.rows);
+      console.log(res.rows[0])
     })
     .catch(e => {next({
       log: `userController.createUser: ${e}`,
@@ -22,5 +21,31 @@ userController.createUser = (req, res, next) => {
     }
     ).then(() => next());
 }
+
+userController.getUser = (req, res, next) => {
+  const { email } = req.query;
+
+  const text = `SELECT * FROM Users WHERE email_address = $1`
+  const val = [`${email}`]
+
+  db
+    .query(text, val)
+    .then(data => {
+      console.log("getUser res: ", res)
+      res.locals.user = data.rows;
+    })
+    .catch(e => {next({
+      log: `userController.getUser: ${e}`,
+      message: { err: 'userController.getUser: ERROR: Check server logs for details' }
+    })
+    }
+    ).then(() => next());
+}
+
+// userController.addAddress = (req, res, next) => {
+
+// }
+
+
 
 module.exports = userController;

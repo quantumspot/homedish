@@ -4,16 +4,17 @@ const userController = require('../controllers/userController');
 
 router.post('/signup',
   userController.createUser,
+  (req, res) => 
+    res.status(200).json(res.locals.user)
+);
+
+router.get('/email', 
+  userController.getUser,
   (req, res) => {
-    res.status(200).json('User created successfully');
+    console.log(req.query)
+    res.status(200).json(res.locals.user)
   }
 );
 
-// router.post('/add-profile-img', 
-//   userController.addProfileImg,
-//   (req, res) => {
-//     res.status(200).json({})
-//   }
-// );
 
 module.exports = router;
