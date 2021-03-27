@@ -57,11 +57,15 @@ const Signup = () => {
       method: "POST",
       body: JSON.stringify({
         name: `${firstName} ${lastName}`,
+<<<<<<< HEAD
         email_address,
+=======
+        email_address: email,
+>>>>>>> 0e7fe0b6bc12d853176a30636e92fced156200ba
         password,
         address: `${street} ${city}, ${state} ${zip}`,
         allergies,
-        // profilePicture,
+        profile_img: "img",
         nickname,
         experience,
         userType,
