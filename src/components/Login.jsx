@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +18,7 @@ const Login = () => {
           <TextField
             label="Email"
             type="text"
-            id="email"
+            id="outlined-basic"
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -30,7 +29,7 @@ const Login = () => {
           <TextField
             label="Password"
             type="password"
-            id="password"
+            id="outlined-password-input"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
