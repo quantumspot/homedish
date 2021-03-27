@@ -10,17 +10,14 @@ router.post('/signup',
     res.status(200).json(res.locals.user)
 );
 
-// router.post('/updateUser', 
-//   userController.getUser,
-//   userController.updateUser,
-//   (req, res) => 
-//     res.status(200).json('address added successfully')
-// );
+router.post('/updateUser', 
+  userController.getUserId,
+  userController.updateUser
+);
 
-router.get('/email', 
+router.get('/getUser', 
   userController.getUser,
   (req, res) => {
-    console.log(req.query)
     res.status(200).json(res.locals.user)
   }
 );
