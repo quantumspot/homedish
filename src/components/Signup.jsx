@@ -24,7 +24,7 @@ const Signup = () => {
     const fields = {
       "first name": firstName,
       "last name": lastName,
-      email: email,
+      email_address: email,
       password: password,
       "re-enter password": reenterPassword,
       street: street,
