@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
 
 const Login = () => {
 
@@ -6,12 +7,10 @@ const Login = () => {
     <>
       <form>
         <p>
-            <label name="email">Email</label>
-            <input type="text" id="email" name="email"/>
+          <TextField id="outlined-basic" label="Email" variant="outlined" />
         </p>
         <p>
-            <label name="password">Password</label>
-            <input type="password" id="password" name="password"/>
+          <TextField id="outlined-password-input" label="Password" type="password" variant="outlined" />
         </p>
         <button>Login</button> 
       </form>
