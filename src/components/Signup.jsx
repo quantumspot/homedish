@@ -124,7 +124,7 @@ const Signup = () => {
           />
         </p>
         {userType === "Cook" && <p>
-          <TextField label="test cook"/>
+          <TextField label="test cook" />
         </p>}
         <p>
           <Input

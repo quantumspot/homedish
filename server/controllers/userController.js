@@ -1,5 +1,6 @@
 const e = require('express');
 const db = require('../models/homeModels');
+const cors = require('cors');
 
 const userController = {};
 
