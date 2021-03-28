@@ -6,8 +6,9 @@ const User = require('../auth/user.js');
 router.post('/signup',
   User.signup,
   userController.createUser,
+  userController.addCook,
   (req, res) => 
-    res.status(200).json(res.locals.user)
+    res.status(201).json(res.locals.user)
 );
 
 router.post('/updateUser', 
@@ -21,6 +22,7 @@ router.get('/getUser',
     res.status(200).json(res.locals.user)
   }
 );
+
 
 
 

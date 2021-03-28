@@ -4,10 +4,10 @@ const db = require('../models/homeModels');
 const userController = {};
 // http://localhost:8080/api/signup
 userController.createUser = (req, res, next) => {
-  const { name, email_address, password, address, allergies } = req.body;
+  const { name, email_address, password, address, allergies, profile_img, is_cook } = req.body;
   
-  const text = 'INSERT INTO Users(name, email_address, password, address, allergies, profile_img, created_on, last_login) VALUES($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING name, email_address, address, allergies, profile_img, created_on, last_login;';
-  const val = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${allergies}`, ''];
+  const text = 'INSERT INTO Users(name, email_address, password, address, allergies, profile_img, is_cook, created_on, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING name, email_address, address, allergies, profile_img, is_cook, created_on, last_login;';
+  const val = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${allergies}`, `${profile_img}`, `${is_cook}`];
 
   db
     .query(text, val)
@@ -17,7 +17,8 @@ userController.createUser = (req, res, next) => {
         name: thisData.name,
         email_address: thisData.email_address,
         address: thisData.address,
-        allergies: thisData.allergies
+        allergies: thisData.allergies,
+        is_cook: thisData.is_cook,
       }
       res.locals.user = userData;
     })
