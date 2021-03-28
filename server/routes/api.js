@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const cookController = require('../controllers/cookController');
+const recipeController = require('../controllers/recipeController');
+
 const User = require('../auth/user.js');
 
 router.post('/signup',
   User.signup,
   userController.createUser,
-  userController.addCook,
+  cookController.addCook,
   (req, res) => 
     res.status(201).json(res.locals.user)
 );

@@ -6,21 +6,24 @@ const userController = {};
 userController.createUser = (req, res, next) => {
   const { name, email_address, password, address, allergies, profile_img, is_cook } = req.body;
   
-  const text = 'INSERT INTO Users(name, email_address, password, address, allergies, profile_img, is_cook, created_on, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING name, email_address, address, allergies, profile_img, is_cook, created_on, last_login;';
+  const text = 'INSERT INTO Users(name, email_address, password, address, allergies, profile_img, is_cook, created_on, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING user_id, name, email_address, address, allergies, profile_img, is_cook, created_on, last_login;';
   const val = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${allergies}`, `${profile_img}`, `${is_cook}`];
 
   db
     .query(text, val)
     .then(data => {
       const thisData = data.rows[0]
+      console.log(thisData)
       const userData = {
         name: thisData.name,
         email_address: thisData.email_address,
         address: thisData.address,
         allergies: thisData.allergies,
         is_cook: thisData.is_cook,
+        user_id: thisData.user_id,
       }
       res.locals.user = userData;
+      console.log(res.locals.user)
     })
     .catch(e => {next({
       log: `userController.createUser: ${e}`,
