@@ -22,8 +22,7 @@ userController.createUser = (req, res, next) => {
         user_id: thisData.user_id,
         token: req.body.token
       }
-      res.locals.user = userData;
-      console.log(res.locals.user)
+      res.locals.user = userData
     })
     .catch(e => {next({
       log: `userController.createUser: ${e}`,
@@ -35,8 +34,8 @@ userController.createUser = (req, res, next) => {
 // http://localhost:8080/api/getUser/?email='email'
 userController.getUser = (req, res, next) => {
   let email;
-  if (req.query) { email = req.query.email; } 
-  else { email = res.locals.user.email_address; }
+  if (req.query) { email = req.query.email } 
+  else { email = res.locals.user.email_address }
 
   const text = `SELECT name, email_address, address, allergies, last_login FROM Users WHERE email_address = $1;`
   const val = [`${email}`]
@@ -77,7 +76,7 @@ userController.updateUser = (req, res, next) => {
   const { column, change } = req.body;
    
   const text = `UPDATE Users SET ${column} = $1 WHERE user_id = ${user};`
-  const val = [`${change}`];
+  const val = [`${change}`]
   
   db
     .query(text, val)
@@ -95,8 +94,8 @@ userController.updateUser = (req, res, next) => {
 userController.deleteUser = (req, res, next) => {
   const user = res.locals.userId;
   
-  const text = 'DELETE from Cooks WHERE user_id = $1; DELETE from Users WHERE user_id = $1;'
-  const val = [`${user}`]
+  const text = 'DELETE from Cooks WHERE user_id = $1; DELETE from Users WHERE user_id = $1;';
+  const val = [`${user}`];
 
   db
     .query(text, val)
