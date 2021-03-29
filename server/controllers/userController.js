@@ -13,7 +13,6 @@ userController.createUser = (req, res, next) => {
     .query(text, val)
     .then(data => {
       const thisData = data.rows[0]
-      console.log(thisData)
       const userData = {
         name: thisData.name,
         email_address: thisData.email_address,
@@ -21,6 +20,7 @@ userController.createUser = (req, res, next) => {
         allergies: thisData.allergies,
         is_cook: thisData.is_cook,
         user_id: thisData.user_id,
+        token: req.body.token
       }
       res.locals.user = userData;
       console.log(res.locals.user)
@@ -90,6 +90,26 @@ userController.updateUser = (req, res, next) => {
     })
     }
     ).then(() => next());
+}
+
+userController.deleteUser = (req, res, next) => {
+  const user = res.locals.userId;
+  
+  const text = 'DELETE from Cooks WHERE user_id = $1; DELETE from Users WHERE user_id = $1;'
+  const val = [`${user}`]
+
+  db
+    .query(text, val)
+    .then(data => {
+      res.status(200);
+    })
+    .catch(e => {next({
+      log: `userController.updateUser: ${e}`,
+      message: { err: 'userController.updateUser: ERROR: Check server logs for details' }
+    })
+    }
+    ).then(() => next());
+
 }
 
 

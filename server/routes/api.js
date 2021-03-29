@@ -19,6 +19,13 @@ router.post('/updateUser',
   userController.updateUser
 );
 
+router.post('/addRecipe', 
+  recipeController.addRecipe,
+  (req, res) => (
+    res.status(201)
+  )
+);
+
 router.get('/getUser', 
   userController.getUser,
   (req, res) => {
@@ -26,8 +33,12 @@ router.get('/getUser',
   }
 );
 
-
-
+router.delete('/deleteUser',
+  userController.deleteUser,
+  (req, res) => {
+    res.status(200)
+  }
+);
 
 
 module.exports = router;

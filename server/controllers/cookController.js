@@ -33,6 +33,24 @@ cookController.addCook = (req, res, next) => {
     })
     }
     ).then(() => next());
+}
 
+cookController.getCook = (req, res, next) => {
+  const { user_id } = req.body;
+
+  const text = `SELECT * FROM Cooks WHERE user_id = $1`;
+  const val = [`${user_id}`];
+
+  db
+    .query(text, val)
+    .then(data =>
+      res.locals.cook = data.rows[0]
+    )
+    .catch(e => {next({
+      log: `cookController.getCook: ${e}`,
+      message: { err: 'cookController.getCook: ERROR: Check server logs for details' }
+    })
+    }
+    ).then(() => next());
 }
 module.exports = cookController;
