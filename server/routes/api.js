@@ -1,31 +1,44 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const cookController = require('../controllers/cookController');
+const recipeController = require('../controllers/recipeController');
+
 const User = require('../auth/user.js');
 
 router.post('/signup',
   User.signup,
   userController.createUser,
+  cookController.addCook,
   (req, res) => 
-    res.status(200).json(res.locals.user)
+    res.status(201).json(res.locals.user)
 );
 
-// router.post('/updateUser', 
-//   userController.getUser,
-//   userController.updateUser,
-//   (req, res) => 
-//     res.status(200).json('address added successfully')
-// );
+router.post('/updateUser', 
+  userController.getUserId,
+  userController.updateUser
+);
 
-router.get('/email', 
+router.post('/addRecipe', 
+  recipeController.addRecipe,
+  (req, res) => (
+    res.status(201)
+  )
+);
+
+router.get('/getUser', 
   userController.getUser,
   (req, res) => {
-    console.log(req.query)
     res.status(200).json(res.locals.user)
   }
 );
 
-
+router.delete('/deleteUser',
+  userController.deleteUser,
+  (req, res) => {
+    res.status(200)
+  }
+);
 
 
 module.exports = router;

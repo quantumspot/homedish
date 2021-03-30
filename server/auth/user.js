@@ -11,11 +11,6 @@ const signup = (request, response, next) => {
     .then(() => createToken())
     .then(token => user.token = token)
     .then(() => next())
-    // .then(() => createUser(user))
-    // .then(user => {
-    //   delete user.password_digest
-    //   response.status(201).json({ user })
-    // })
     .catch((err) => console.error(err))
 }
 
