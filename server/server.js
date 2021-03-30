@@ -4,10 +4,13 @@ const userController = require('./controllers/userController');
 const app = express();
 
 const PORT = 3000;
-const apiRouter = require('./routes/api');
+const { apiRouter } = require('./routes/api');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api', apiRouter);
 

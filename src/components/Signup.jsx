@@ -15,8 +15,62 @@ const Signup = () => {
   const [zip, setZip] = useState("");
   const [allergies, setAllergies] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
+  const [nickname, setNickname] = useState("");
+  const [experience, setExperience] = useState("");
   const [userType, setUserType] = useState("Eater");
+  const [validationMap, setValidationMap] = useState({});
 
+  const handleSignup = async () => {
+    const fields = {
+      "first name": firstName,
+      "last name": lastName,
+      email_address: email,
+      password: password,
+      "re-enter password": reenterPassword,
+      street: street,
+      city: city,
+      state: state,
+      zip: zip,
+      allergies: allergies,
+    };
+
+    const signUpErrors = {};
+    for (const key in fields) {
+      if (!fields[key]) {
+        signUpErrors[key] = `${key} is required`;
+      } else if (key === "password" || key === "re-enter password") {
+        if (fields["password"] !== fields["re-enter password"]) {
+          signUpErrors["password"] = "passwords must match";
+          signUpErrors["re-enter password"] = "passwords must match";
+        }
+      } else if (key === "allergies" && !fields[key]) {
+        signUpErrors[key] = "Indicate none if no allergies";
+      }
+    }
+
+    if (Object.keys(signUpErrors).length > 0) {
+      setValidationMap(signUpErrors);
+      return;
+    }
+
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        name: `${firstName} ${lastName}`,
+        email_address: email,
+        password,
+        address: `${street} ${city}, ${state} ${zip}`,
+        allergies,
+        profile_img: "img",
+        nickname,
+        experience,
+        userType,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   return (
     <>
@@ -31,6 +85,9 @@ const Signup = () => {
             name="firstname"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            error={!!validationMap["first name"]}
+            helperText={validationMap["first name"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -41,6 +98,9 @@ const Signup = () => {
             name="lastname"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            error={!!validationMap["last name"]}
+            helperText={validationMap["last name"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -51,6 +111,9 @@ const Signup = () => {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            error={!!validationMap["email"]}
+            helperText={validationMap["email"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -61,6 +124,9 @@ const Signup = () => {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            error={!!validationMap["password"]}
+            helperText={validationMap["password"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -71,6 +137,9 @@ const Signup = () => {
             name="re-enter"
             value={reenterPassword}
             onChange={(e) => setReenterPassword(e.target.value)}
+            error={!!validationMap["re-enter password"]}
+            helperText={validationMap["re-enter password"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -81,6 +150,9 @@ const Signup = () => {
             name="street"
             value={street}
             onChange={(e) => setStreet(e.target.value)}
+            error={!!validationMap["street"]}
+            helperText={validationMap["street"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -91,6 +163,9 @@ const Signup = () => {
             name="city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            error={!!validationMap["city"]}
+            helperText={validationMap["city"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -101,6 +176,9 @@ const Signup = () => {
             name="zip"
             value={zip}
             onChange={(e) => setZip(e.target.value)}
+            error={!!validationMap["zip"]}
+            helperText={validationMap["zip"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -111,6 +189,9 @@ const Signup = () => {
             name="state"
             value={state}
             onChange={(e) => setState(e.target.value)}
+            error={!!validationMap["state"]}
+            helperText={validationMap["state"]}
+            variant="outlined"
           />
         </p>
         <p>
@@ -121,11 +202,47 @@ const Signup = () => {
             name="allergies"
             value={allergies}
             onChange={(e) => setAllergies(e.target.value)}
+            error={!!validationMap["allergies"]}
+            helperText={!!validationMap["allergies"]}
+            variant="outlined"
           />
         </p>
-        {userType === "Cook" && <p>
-          <TextField label="test cook" />
-        </p>}
+        {userType === "Cook" && (
+          <div>
+            <p>
+              <TextField
+                label="Years of Experience"
+                type="number"
+                id="experience"
+                name="experience"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
+                error={!experience}
+                helperText={
+                  experience
+                    ? ""
+                    : "Let your eaters know if you are a novice cook or a MasterChef."
+                }
+                variant="outlined"
+              />
+            </p>
+            <p>
+              <TextField
+                label="Nickname"
+                type="text"
+                id="nickname"
+                name="nickname"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+                error={!nickname}
+                helperText={
+                  nickname ? "" : "This is the name your eaters will see."
+                }
+                variant="outlined"
+              />
+            </p>
+          </div>
+        )}
         <p>
           <Input
             type="file"
@@ -141,7 +258,9 @@ const Signup = () => {
             />
           )}
         </p>
-        <Button color="primary">Sign Up</Button>
+        <Button color="primary" onClick={handleSignup}>
+          Sign Up
+        </Button>
       </form>
     </>
   );

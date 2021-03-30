@@ -1,22 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignIn = () => {
+
+  }
 
   return (
     <>
       <form>
         <p>
-            <label name="email">Email</label>
-            <input type="text" id="email" name="email"/>
+          <TextField
+            label="Email"
+            type="text"
+            id="outlined-basic"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            variant="outlined"
+          />
         </p>
         <p>
-            <label name="password">Password</label>
-            <input type="password" id="password" name="password"/>
+          <TextField
+            label="Password"
+            type="password"
+            id="outlined-password-input"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            variant="outlined"
+          />
         </p>
-        <button>Login</button> 
+        <Button color="primary" onClick={handleSignIn}>
+          Sign In
+        </Button>
       </form>
     </>
-  )
+  );
 }
 
 export default Login;

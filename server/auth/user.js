@@ -1,21 +1,16 @@
 const bcrypt = require('bcrypt');
-const crypto = require('crypto')
+const crypto = require('crypto');
 
 const signup = (request, response, next) => {
-  const user = request.body
+  const user = request.body;
   hashPassword(user.password)
     .then((hashedPassword) => {
-      delete user.password
-      user.password = hashedPassword
+      delete user.password;
+      user.password = hashedPassword;
     })
     .then(() => createToken())
     .then(token => user.token = token)
     .then(() => next())
-    // .then(() => createUser(user))
-    // .then(user => {
-    //   delete user.password_digest
-    //   response.status(201).json({ user })
-    // })
     .catch((err) => console.error(err))
 }
 
