@@ -4,10 +4,10 @@ const db = require('../models/homeModels');
 const userController = {};
 // http://localhost:8080/api/signup
 userController.createUser = (req, res, next) => {
-  const { name, email_address, password, address, allergies } = req.body;
+  const { name, email_address, password, address, allergies, profile_img, is_cook } = req.body;
   
-  const text = 'INSERT INTO Users(name, email_address, password, address, allergies, profile_img, created_on, last_login) VALUES($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING name, email_address, address, allergies, profile_img, created_on, last_login;';
-  const val = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${allergies}`, ''];
+  const text = 'INSERT INTO Users(name, email_address, password, address, allergies, profile_img, is_cook, created_on, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING user_id, name, email_address, address, allergies, profile_img, is_cook, created_on, last_login;';
+  const val = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${allergies}`, `${profile_img}`, `${is_cook}`];
 
   db
     .query(text, val)
@@ -17,9 +17,12 @@ userController.createUser = (req, res, next) => {
         name: thisData.name,
         email_address: thisData.email_address,
         address: thisData.address,
-        allergies: thisData.allergies
+        allergies: thisData.allergies,
+        is_cook: thisData.is_cook,
+        user_id: thisData.user_id,
+        token: req.body.token
       }
-      res.locals.user = userData;
+      res.locals.user = userData
     })
     .catch(e => {next({
       log: `userController.createUser: ${e}`,
@@ -27,12 +30,13 @@ userController.createUser = (req, res, next) => {
     })
     }
     ).then(() => next());
+
 }
 // http://localhost:8080/api/getUser/?email='email'
 userController.getUser = (req, res, next) => {
   let email;
-  if (req.query) { email = req.query.email; } 
-  else { email = res.locals.user.email_address; }
+  if (req.query) { email = req.query.email } 
+  else { email = res.locals.user.email_address }
 
   const text = `SELECT name, email_address, address, allergies, last_login FROM Users WHERE email_address = $1;`
   const val = [`${email}`]
@@ -48,6 +52,7 @@ userController.getUser = (req, res, next) => {
     })
     }
     ).then(() => next());
+
 }
 
 userController.getUserId = (req, res, next) => {
@@ -66,6 +71,7 @@ userController.getUserId = (req, res, next) => {
     })
     }
     ).then(() => next());
+
 }
 // http://localhost:8080/api/updateUser/?email='email'
 userController.updateUser = (req, res, next) => {
@@ -73,7 +79,7 @@ userController.updateUser = (req, res, next) => {
   const { column, change } = req.body;
    
   const text = `UPDATE Users SET ${column} = $1 WHERE user_id = ${user};`
-  const val = [`${change}`];
+  const val = [`${change}`]
   
   db
     .query(text, val)
@@ -86,6 +92,27 @@ userController.updateUser = (req, res, next) => {
     })
     }
     ).then(() => next());
+
+}
+
+userController.deleteUser = (req, res, next) => {
+  const user = res.locals.userId;
+  
+  const text = 'DELETE from Recipes WHERE user_id = $1; DELETE from Cooks WHERE user_id = $1; DELETE from Users WHERE user_id = $1;';
+  const val = [`${user}`];
+
+  db
+    .query(text, val)
+    .then(data => {
+      res.status(200);
+    })
+    .catch(e => {next({
+      log: `userController.updateUser: ${e}`,
+      message: { err: 'userController.updateUser: ERROR: Check server logs for details' }
+    })
+    }
+    ).then(() => next());
+
 }
 
 
