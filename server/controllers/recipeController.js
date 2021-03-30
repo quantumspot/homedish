@@ -10,7 +10,7 @@ const cookController = {};
 //   allergens VARCHAR(255) NOT NULL,
 //   country_of_origin VARCHAR(50),
 //   meal_type VARCHAR(50),
-//   FOREIGN KEY cook_id REFERENCES Cooks(cook_id),
+//   cook_id INT REFERENCES Cooks(cook_id),
 // );
 cookController.addRecipe = (req, res, next) => {
   const { title, description, allergens, country_of_origin, meal_type, cook_id } = req.body;

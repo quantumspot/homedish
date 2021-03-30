@@ -30,6 +30,7 @@ userController.createUser = (req, res, next) => {
     })
     }
     ).then(() => next());
+
 }
 // http://localhost:8080/api/getUser/?email='email'
 userController.getUser = (req, res, next) => {
@@ -51,6 +52,7 @@ userController.getUser = (req, res, next) => {
     })
     }
     ).then(() => next());
+
 }
 
 userController.getUserId = (req, res, next) => {
@@ -69,6 +71,7 @@ userController.getUserId = (req, res, next) => {
     })
     }
     ).then(() => next());
+
 }
 // http://localhost:8080/api/updateUser/?email='email'
 userController.updateUser = (req, res, next) => {
@@ -89,12 +92,13 @@ userController.updateUser = (req, res, next) => {
     })
     }
     ).then(() => next());
+
 }
 
 userController.deleteUser = (req, res, next) => {
   const user = res.locals.userId;
   
-  const text = 'DELETE from Cooks WHERE user_id = $1; DELETE from Users WHERE user_id = $1;';
+  const text = 'DELETE from Recipes WHERE user_id = $1; DELETE from Cooks WHERE user_id = $1; DELETE from Users WHERE user_id = $1;';
   const val = [`${user}`];
 
   db
