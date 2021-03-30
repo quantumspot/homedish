@@ -1,7 +1,11 @@
 body {
     font-family: 'Roboto', sans-serif;
     color: #454545;
+<<<<<<< HEAD
     overflow-y: scroll; 
+=======
+    /* overflow-y: hidden;  may need to remove */
+>>>>>>> 72676ff57a2211bd48455647b91658386b1f62a6
 }
 
 h1 {
