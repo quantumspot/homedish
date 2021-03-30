@@ -32,6 +32,7 @@ const Signup = () => {
       state: state,
       zip: zip,
       allergies: allergies,
+      is_cook: false
     };
 
     const signUpErrors = {};
@@ -65,6 +66,7 @@ const Signup = () => {
         nickname,
         experience,
         userType,
+        is_cook: false
       }),
       headers: {
         "Content-Type": "application/json",
