@@ -20,9 +20,9 @@ cookController.addRecipe = (req, res, next) => {
   
   db
     .query(text, vals)
-    .then(data => 
-      console.log(data.rows)
-    )
+    .then(data => {
+      res.locals.recipe = data.rows[0]
+    })
     .catch(e => {next({
       log: `recipeController.addRecipe: ${e}`,
       message: { err: 'recipeController.addRecipe: ERROR: Check server logs for details' }
