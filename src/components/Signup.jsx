@@ -9,6 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [reenterPassword, setReenterPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -24,9 +25,10 @@ const Signup = () => {
     const fields = {
       "first name": firstName,
       "last name": lastName,
-      email_address: email,
+      email,
       password: password,
       "re-enter password": reenterPassword,
+      "phone number": phoneNumber,
       street: street,
       city: city,
       state: state,
@@ -59,6 +61,7 @@ const Signup = () => {
         name: `${firstName} ${lastName}`,
         email_address: email,
         password,
+        phone_number: phoneNumber,
         address: `${street} ${city}, ${state} ${zip}`,
         allergies,
         profile_img: "img",
