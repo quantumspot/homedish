@@ -3,9 +3,15 @@ import Login from './../components/Login.jsx';
 import Signup from '../components/Signup.jsx';
 import Landing from '../components/Landing.jsx';
 import RecipeCard from '../components/RecipeCard.jsx';
+import RecipeDetails from '../components/RecipeDetails.jsx';
 import { Switch, Route, Link, withRouter } from "react-router-dom";
 
 const MainContainer = () => {
+  const mockRecipesFromBackend = [
+    {name: 'recipe 1', id: 1},
+    {name: 'recipe 2', id: 2},
+    {name: 'recipe 3', id: 3},
+  ]
   return (
     <>
       <div className="nav">
@@ -15,7 +21,8 @@ const MainContainer = () => {
           <div className="signup-link"><Link to="/signup">Sign Up</Link></div>
         </div>     
       </div>
-
+      {mockRecipesFromBackend
+      .map((recipe) => <Link to={`/recipe-details/${recipe.id}`}>{recipe.name}</Link>)}
       <div className="auth-nav" style={{ display: "none"}}>
         <Link to="/create-recipe">Create a Recipe</Link>
         {/* <Link to="/search">My Active Recipes</Link>
@@ -38,6 +45,9 @@ const MainContainer = () => {
         </Route>
         <Route path="/create-recipe">
             <RecipeCard />
+        </Route>
+          <Route path="/recipe-details/:id">
+            <RecipeDetails />
         </Route>
       </Switch>
     </>

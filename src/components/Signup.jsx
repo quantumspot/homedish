@@ -88,9 +88,10 @@ const Signup = () => {
             error={!!validationMap["first name"]}
             helperText={validationMap["first name"]}
             variant="outlined"
+            style={{marginRight: "10px"}}
           />
-        </p>
-        <p>
+        {/* </p>
+        <p> */}
           <TextField
             label="Last Name"
             type="text"
@@ -250,7 +251,9 @@ const Signup = () => {
             name="profile-picture"
             // value={profilePicture}
             onChange={(e) => setProfilePicture(e.target.files[0])}
+            style={{display: "none"}}
           />
+          <label for="profile-picture" style={{border: '1px solid grey'}}>Upload a photo</label>
           {profilePicture && (
             <img
               src={URL.createObjectURL(profilePicture)}
