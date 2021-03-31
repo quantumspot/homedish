@@ -30,12 +30,13 @@ userController.getUser = (req, res, next) => {
   if (req.query) email = req.query.email;
   else email = res.locals.user.email_address;
 
-  const text = `SELECT name, email_address, address, allergies, last_login FROM Users WHERE email_address = $1;`
+  const text = `SELECT name, email_address, address, phone_number, allergies, is_cook, last_login FROM Users WHERE email_address = $1;`
   const val = [`${email}`]
 
   db
     .query(text, val)
     .then(data => {
+
       res.locals.user = data.rows[0];
     })
     .catch(e => {next({
@@ -90,13 +91,13 @@ userController.updateUser = (req, res, next) => {
 userController.deleteUser = (req, res, next) => {
   const user = res.locals.userId;
   
-  const text = 'DELETE from Recipes WHERE user_id = $1; DELETE from Cooks WHERE user_id = $1; DELETE from Users WHERE user_id = $1;';
+  const text = 'DELETE from Users WHERE user_id = $1;';
   const val = [`${user}`];
 
   db
     .query(text, val)
     .then(data => {
-      res.status(200);
+      res.status(200).send('User deleted');
     })
     .catch(e => {next({
       log: `userController.updateUser: ${e}`,

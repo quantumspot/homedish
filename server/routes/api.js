@@ -34,6 +34,7 @@ router.get('/getUser',
 );
 
 router.delete('/deleteUser',
+  userController.getUser,
   userController.deleteUser,
   (req, res) => {
     res.status(200)

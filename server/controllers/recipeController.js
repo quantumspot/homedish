@@ -13,10 +13,10 @@ const cookController = {};
 //   cook_id INT REFERENCES Cooks(cook_id),
 // );
 cookController.addRecipe = (req, res, next) => {
-  const { title, description, allergens, country_of_origin, meal_type, cook_id } = req.body;
+  const { title, description, allergens, country_of_origin, meal_type, cook_id, photo_url } = req.body;
   
-  const text = `INSERT INTO Recipes(title, description, allergens, country_of_origin, meal_type, cook_id) VALUES($1, $2, $3, $4, $5, $6)`;
-  const vals = [`${title}`, `${description}`, `${allergens}`, `${country_of_origin}`, `${meal_type}`, `${cook_id}`];
+  const text = `INSERT INTO Recipes(title, description, allergens, country_of_origin, meal_type, cook_id, photo_url) VALUES($1, $2, $3, $4, $5, $6)`;
+  const vals = [`${title}`, `${description}`, `${allergens}`, `${country_of_origin}`, `${meal_type}`, `${cook_id}`, `${photo_url}`];
   
   db
     .query(text, vals)
