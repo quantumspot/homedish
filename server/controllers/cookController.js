@@ -14,7 +14,7 @@ cookController.addCook = (req, res, next) => {
   if (!res.locals.user.is_cook) return next();
 
   const cookData = {
-    cooking_experience: req.body.cooking_experience,
+    cooking_experience: parseInt(req.body.cooking_experience),
     kitchen_name: req.body.kitchen_name
   };
   
@@ -26,7 +26,7 @@ cookController.addCook = (req, res, next) => {
   db
     .query(text, vals)
     .then(data => {
-      res.local.cook = data.rows[0];
+      res.locals.user['cookInfo'] = data.rows[0];
     })
     .catch(e => {next({
       log: `cookController.addCook: ${e}`,

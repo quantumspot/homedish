@@ -22,7 +22,7 @@ const MainContainer = () => {
             <div className="login-link"><Link to="/login">Login</Link></div>
             <div className="signup-link"><Link to="/signup">Sign Up</Link></div>
           </div>     
-//       {/*mockRecipesFromBackend
+        {/*mockRecipesFromBackend
 //       .map((recipe) => <Link to={`/recipe-details/${recipe.id}`}>placeholder</Link>)*/}
 
           <div className="auth-cook-nav" style={{ display: "none"}}>
