@@ -9,6 +9,16 @@ const Login = () => {
 
   const handleSignIn = () => {
 
+    fetch('/api/login', {
+      method: 'POST',
+      body: {
+        "email_address": email,
+        "password": password,
+      }
+    })
+      .then(res => res.json())
+      .then(data => console.log('signed in successfully', data))
+      .catch(err => console.log(err))
   }
 
   return (

@@ -4,36 +4,18 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const cookController = require('../controllers/cookController');
 const recipeController = require('../controllers/recipeController');
-const LocalStrategy = require('passport-local');
-const db = require('../models/homeModels');
-const bcrypt = require('bcrypt')
-const init = require('../auth/passport');
-
 const User = require('../auth/user.js');
 
-init();
-passport.use(new LocalStrategy((username, password, cb) => {
-  const query = `SELECT user_id, email_address, password FROM Users WHERE email_address = $1`
-  const values = [username];
-  db.query(query, values)
-    .then((data) => {
-      const user = data.rows[0];
-      if (!user) return cb(null, false);
-      if (bcrypt.compare(password, user.password)) return cb(null, user);
-      else return cb(null, false);
-    })
-    .catch(err => cb(err))
-}))
+
 
 router.post('/login',
-  passport.authenticate('signup', { session: false }),
-
-  async (req, res, next) => {
+  passport.authenticate('local', (req, res, next) => {
+    console.log(req)
     res.json({
-      message: 'Signup successful',
-      user: req.user
+      message: 'login successful',
+      user: req.body.user
     });
-  }
+  })
 );
 
 router.post('/signup',
@@ -71,4 +53,4 @@ router.delete('/deleteUser',
 );
 
 
-module.exports = {router, passport};
+module.exports = router;

@@ -20,6 +20,7 @@
     "@material-ui/icons": "^4.11.2",
     "bcrypt": "^5.0.1",
     "browserify": "^17.0.0",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "file-loader": "^6.2.0",
