@@ -8,7 +8,19 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleSignIn = () => {
-
+    
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email_address: email,
+        password: password
+      })
+    })
+      .then(res => res.json())
+      .then(data => console.log(data));
   }
 
   return (
