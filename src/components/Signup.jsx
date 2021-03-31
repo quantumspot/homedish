@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 
-const Signup = () => {
+const Signup = ({ setUser, setIsLoggedIn }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -78,10 +78,18 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
     })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }else {
+        throw "user not created"
+      }
+    })
     .then(data => {
       // can change redirect route later
-      data.is_cook ? history.push('/create-recipe') : history.push('/dashboard')
+      setUser(data);
+      setIsLoggedIn(true);
+      data.is_cook ? history.push('/create-recipe') : history.push('/dashboard');
     })
     .catch(err => console.log(err))
     
@@ -184,6 +192,7 @@ const Signup = () => {
             error={!!validationMap["street"]}
             helperText={validationMap["street"]}
             variant="outlined"
+            style={{width: "500px"}}
           />
         </p>
         <p>
@@ -283,7 +292,7 @@ const Signup = () => {
             onChange={(e) => setProfilePicture(e.target.files[0])}
             style={{display: "none"}}
           />
-          <label for="profile-picture" style={{border: '1px solid grey'}}>Upload a photo</label>
+          <label htmlFor="profile-picture" style={{border: '1px solid grey'}}>Upload a photo</label>
           {profilePicture && (
             <img
               src={URL.createObjectURL(profilePicture)}

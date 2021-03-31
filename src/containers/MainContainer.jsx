@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login from './../components/Login.jsx';
 import Signup from '../components/Signup.jsx';
 import Landing from '../components/Landing.jsx';
 import RecipeCard from '../components/RecipeCard.jsx';
 import Search from '../components/Search.jsx';
 import RecipeDetails from '../components/RecipeDetails.jsx';
+
 
 import { Switch, Route, Link, withRouter } from "react-router-dom";
 
@@ -13,14 +14,19 @@ const MainContainer = () => {
     {name: 'recipe 1', id: 1},
     {name: 'recipe 2', id: 2},
     {name: 'recipe 3', id: 3},
-  ]
+  ];
+
+  const [user, setUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <>
       <div className="nav">
           <div><Link to="/home"><h2>HomeDish</h2></Link></div>
+          <div>{user.name}</div>
           <div className="home-nav">
-            <div className="login-link"><Link to="/login">Login</Link></div>
-            <div className="signup-link"><Link to="/signup">Sign Up</Link></div>
+            {!isLoggedIn && <div className="login-link"><Link to="/login">Login</Link></div>}
+            {!isLoggedIn && <div className="signup-link"><Link to="/signup">Sign Up</Link></div>}
           </div>     
         {/*mockRecipesFromBackend
 //       .map((recipe) => <Link to={`/recipe-details/${recipe.id}`}>placeholder</Link>)*/}
@@ -45,7 +51,7 @@ const MainContainer = () => {
             <Login />
         </Route>
         <Route path="/signup">
-            <Signup />
+            <Signup setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
         </Route>
         <Route path="/create-recipe">
             <RecipeCard />
