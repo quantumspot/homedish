@@ -20,6 +20,8 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
 
 app.use('/api', apiRouter);
 
+// app.use('/login', loginRouter)
+
 app.use('/', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
 });

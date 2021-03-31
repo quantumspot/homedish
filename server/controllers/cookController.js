@@ -12,11 +12,11 @@ const cookController = {};
 
 cookController.addCook = (req, res, next) => {
   if (!res.locals.user.is_cook) return next();
-  
+
   const cookData = {
-    cooking_experience: req.body.cooking_experience,
+    cooking_experience: parseInt(req.body.cooking_experience),
     kitchen_name: req.body.kitchen_name
-  }
+  };
   
   const { user_id } = res.locals.user;
   
@@ -25,9 +25,9 @@ cookController.addCook = (req, res, next) => {
   
   db
     .query(text, vals)
-    .then(data => 
-      console.log(data.rows)
-    )
+    .then(data => {
+      res.locals.user['cookInfo'] = data.rows[0];
+    })
     .catch(e => {next({
       log: `cookController.addCook: ${e}`,
       message: { err: 'cookController.addCook: ERROR: Check server logs for details' }
@@ -45,9 +45,9 @@ cookController.getCook = (req, res, next) => {
 
   db
     .query(text, val)
-    .then(data =>
-      res.locals.cook = data.rows[0]
-    )
+    .then(data => {
+      res.locals.cook = data.rows[0];
+    })
     .catch(e => {next({
       log: `cookController.getCook: ${e}`,
       message: { err: 'cookController.getCook: ERROR: Check server logs for details' }

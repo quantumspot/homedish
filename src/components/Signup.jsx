@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
@@ -9,29 +10,33 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [reenterPassword, setReenterPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [allergies, setAllergies] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
-  const [nickname, setNickname] = useState("");
+  const [kitchenName, setKitchenName] = useState("");
   const [experience, setExperience] = useState("");
-  const [userType, setUserType] = useState("Eater");
+  const [is_cook, setUserType] = useState("false");
   const [validationMap, setValidationMap] = useState({});
+  const history = useHistory();
 
   const handleSignup = async () => {
     const fields = {
       "first name": firstName,
       "last name": lastName,
-      email_address: email,
+      email,
       password: password,
       "re-enter password": reenterPassword,
+      "phone number": phoneNumber,
       street: street,
       city: city,
       state: state,
       zip: zip,
       allergies: allergies,
+      is_cook: is_cook
     };
 
     const signUpErrors = {};
@@ -45,6 +50,8 @@ const Signup = () => {
         }
       } else if (key === "allergies" && !fields[key]) {
         signUpErrors[key] = "Indicate none if no allergies";
+      } else if (key === "phoneNumber" && phoneNumber.length !== 10) {
+        signUpErrors[key] = "Phone Number must be exactly 10 characters long"
       }
     }
 
@@ -52,30 +59,39 @@ const Signup = () => {
       setValidationMap(signUpErrors);
       return;
     }
-
-    const response = await fetch("/api/signup", {
+    
+    fetch("/api/signup", {
       method: "POST",
       body: JSON.stringify({
         name: `${firstName} ${lastName}`,
         email_address: email,
         password,
+        phone_number: phoneNumber,
         address: `${street} ${city}, ${state} ${zip}`,
         allergies,
         profile_img: "img",
-        nickname,
-        experience,
-        userType,
+        kitchen_name: kitchenName,
+        cooking_experience: experience,
+        is_cook
       }),
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
+    .then(res => res.json())
+    .then(data => {
+      // can change redirect route later
+      data.is_cook ? history.push('/create-recipe') : history.push('/dashboard')
+    })
+    .catch(err => console.log(err))
+    
+    
   };
 
   return (
     <>
-      <Button onClick={() => setUserType("Eater")}>Eat</Button>
-      <Button onClick={() => setUserType("Cook")}>Cook</Button>
+      <Button onClick={() => setUserType("false")}>Eat</Button>
+      <Button onClick={() => setUserType("true")}>Cook</Button>
       <form>
         <p>
           <TextField
@@ -88,9 +104,10 @@ const Signup = () => {
             error={!!validationMap["first name"]}
             helperText={validationMap["first name"]}
             variant="outlined"
+            style={{marginRight: "10px"}}
           />
-        </p>
-        <p>
+        {/* </p>
+        <p> */}
           <TextField
             label="Last Name"
             type="text"
@@ -139,6 +156,20 @@ const Signup = () => {
             onChange={(e) => setReenterPassword(e.target.value)}
             error={!!validationMap["re-enter password"]}
             helperText={validationMap["re-enter password"]}
+            variant="outlined"
+          />
+        </p>
+        {/* {add input for phone number} */}
+        <p>
+          <TextField
+            label="Phone Number"
+            type="text"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            error={!!validationMap["phoneNumber"]}
+            helperText={validationMap["phoneNumber"]}
             variant="outlined"
           />
         </p>
@@ -207,7 +238,7 @@ const Signup = () => {
             variant="outlined"
           />
         </p>
-        {userType === "Cook" && (
+        {is_cook === "true" && (
           <div>
             <p>
               <TextField
@@ -228,15 +259,15 @@ const Signup = () => {
             </p>
             <p>
               <TextField
-                label="Nickname"
+                label="Kitchen Name"
                 type="text"
-                id="nickname"
-                name="nickname"
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
-                error={!nickname}
+                id="kitchenName"
+                name="kitchenName"
+                value={kitchenName}
+                onChange={(e) => setKitchenName(e.target.value)}
+                error={!kitchenName}
                 helperText={
-                  nickname ? "" : "This is the name your eaters will see."
+                  kitchenName ? "" : "This is the name your eaters will see."
                 }
                 variant="outlined"
               />
@@ -250,7 +281,9 @@ const Signup = () => {
             name="profile-picture"
             // value={profilePicture}
             onChange={(e) => setProfilePicture(e.target.files[0])}
+            style={{display: "none"}}
           />
+          <label for="profile-picture" style={{border: '1px solid grey'}}>Upload a photo</label>
           {profilePicture && (
             <img
               src={URL.createObjectURL(profilePicture)}
