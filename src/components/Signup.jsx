@@ -9,6 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [reenterPassword, setReenterPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -24,9 +25,10 @@ const Signup = () => {
     const fields = {
       "first name": firstName,
       "last name": lastName,
-      email_address: email,
+      email,
       password: password,
       "re-enter password": reenterPassword,
+      "phone number": phoneNumber,
       street: street,
       city: city,
       state: state,
@@ -60,6 +62,7 @@ const Signup = () => {
         name: `${firstName} ${lastName}`,
         email_address: email,
         password,
+        phone_number: phoneNumber,
         address: `${street} ${city}, ${state} ${zip}`,
         allergies,
         profile_img: "img",
@@ -90,9 +93,10 @@ const Signup = () => {
             error={!!validationMap["first name"]}
             helperText={validationMap["first name"]}
             variant="outlined"
+            style={{marginRight: "10px"}}
           />
-        </p>
-        <p>
+        {/* </p>
+        <p> */}
           <TextField
             label="Last Name"
             type="text"
@@ -252,7 +256,9 @@ const Signup = () => {
             name="profile-picture"
             // value={profilePicture}
             onChange={(e) => setProfilePicture(e.target.files[0])}
+            style={{display: "none"}}
           />
+          <label for="profile-picture" style={{border: '1px solid grey'}}>Upload a photo</label>
           {profilePicture && (
             <img
               src={URL.createObjectURL(profilePicture)}
