@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
+import { useHistory } from 'react-router-dom'
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const history = useHistory();
   const handleSignIn = () => {
-    
+  
     fetch('/login', {
       method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({
         email_address: email,
         password: password
-      })
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
-      .then(res => res.json())
-      .then(data => console.log(data));
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      history.push('/');
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   return (
