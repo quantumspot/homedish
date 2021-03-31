@@ -95,6 +95,7 @@ a {
     margin-top: 20px;
 }
 
+
 /***** search *****/
 
 .search {
@@ -149,4 +150,7 @@ a {
     border-radius: 20px;
     color: white;
     font-size: 12px;
+
+.recipe-card-row {
+    margin-bottom: 15px;
 }
