@@ -1,22 +1,24 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const UserModel = require('../models/homeModels');
+const db = require('../models/homeModels');
 const bcrypt = require('bcrypt');
 
-passport.use(new LocalStrategy((email_address, password, cb) => {
-  db.query('SELECT user_id, email_address, password FROM users WHERE email_address=$1', [email_address], (err, result) => {
+passport.use(new LocalStrategy((email_address, password, done) => {
+  console.log(email_address)
+  db.query('SELECT user_id, email_address, password FROM Users WHERE email_address=$1;', [email_address], (err, result) => {
     if(err) {
       console.log('Error when selecting user on login', err)
-      return cb(err)
+      return done(err)
     }
 
     if(result.rows.length > 0) {
+      console.log('we made it!')
       const first = result.rows[0]
       bcrypt.compare(password, first.password, function(err, res) {
-        if(res) {
-          cb(null, { user_id: first.id, email_address: first.email_address })
+        if (res) {
+          done(null, { user: first.user_id, email_address: first.email_address })
          } else {
-          cb(null, false)
+          done(null, false)
          }
        })
      } else {
@@ -27,11 +29,11 @@ passport.use(new LocalStrategy((email_address, password, cb) => {
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.user_id)
+  done(null, user)
 })
 
 passport.deserializeUser((id, cb) => {
-  db.query('SELECT id, username, type FROM users WHERE id = $1', [parseInt(id, 10)], (err, results) => {
+  db.query('SELECT user_id, email_address FROM Users WHERE id = $1', [parseInt(id, 10)], (err, results) => {
     if(err) {
       console.log('error selecting user on session deserialize', err)
       return cb(err)
