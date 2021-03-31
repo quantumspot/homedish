@@ -4,10 +4,11 @@ const db = require('../models/homeModels');
 const userController = {};
 // http://localhost:8080/api/signup
 userController.createUser = (req, res, next) => {
+  console.log(req.body)
   const { name, email_address, password, address, phone_number, allergies, profile_img, is_cook } = req.body;
   
   const text = 'INSERT INTO Users(name, email_address, password, address, phone_number, allergies, profile_img, is_cook, created_on, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, $8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING user_id, name, email_address, address, phone_number, allergies, profile_img, is_cook, created_on, last_login;';
-  const val = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${phone_number}` `${allergies}`, `${profile_img}`, `${is_cook}`];
+  const val = [`${name}`, `${email_address}`, `${password}`, `${address}`, `${phone_number}`, `${allergies}`, `${profile_img}`, `${is_cook}`];
 
   db
     .query(text, val)
@@ -36,7 +37,6 @@ userController.getUser = (req, res, next) => {
   db
     .query(text, val)
     .then(data => {
-
       res.locals.user = data.rows[0];
     })
     .catch(e => {next({
