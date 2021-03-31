@@ -11,7 +11,7 @@ router.post('/signup',
   userController.createUser,
   cookController.addCook,
   (req, res) => 
-    res.status(201).json(res.locals.user)
+    res.status(201).send(res.locals.user)
 );
 
 router.post('/updateUser', 
