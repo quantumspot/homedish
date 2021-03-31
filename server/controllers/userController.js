@@ -28,15 +28,20 @@ userController.createUser = (req, res, next) => {
 // http://localhost:8080/api/getUser/?email='email'
 userController.getUser = (req, res, next) => {
   let email;
-  if (req.query) email = req.query.email;
-  else email = res.locals.user.email_address;
+  if (req.query.email) { 
+    email = req.query.email;
+  } else {
+    email = req.body.username;
+  }
 
+  console.log('email', email)
   const text = `SELECT name, email_address, address, phone_number, allergies, is_cook, last_login FROM Users WHERE email_address = $1;`
   const val = [`${email}`]
 
   db
     .query(text, val)
     .then(data => {
+      console.log(data.rows)
       res.locals.user = data.rows[0];
     })
     .catch(e => {next({

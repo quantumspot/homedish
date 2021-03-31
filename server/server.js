@@ -1,17 +1,20 @@
 const path = require('path');
 const express = require('express');
-const userController = require('./controllers/userController');
 const app = express();
-
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const PORT = 3000;
+require('./auth/passport');
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 const apiRouter = require('./routes/api');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', apiRouter);
-
-// app.use('/login', loginRouter)
 
 app.use('/', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
