@@ -53,11 +53,9 @@ const MainContainer = () => {
         <PrivateRoute component={RecipeCard} path="/create-recipe" exact />
         <PrivateRoute component={Search} path="/search" exact />
         <PrivateRoute component={Homepage} path="/recipe-details/:id" exact />
-        <Route path="/recipe-details/:id">
-        </Route>
       </Switch>
     </>
-  )
+  );
 }
 
 {/* 

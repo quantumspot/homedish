@@ -1,33 +1,42 @@
 import React, { useState } from 'react';
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { useHistory } from 'react-router-dom'
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ setUser, setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
   const handleSignIn = () => {
-  
-    fetch('/login', {
+    fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
-        email_address: email,
-        password: password
+        username: email,
+        password: password,
       }),
       headers: {
         "Content-Type": "application/json",
       },
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      history.push('/');
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw "user not logged in";
+        }
+      })
+      .then((data) => {
+        // can change redirect route later
+        setUser(data);
+        setIsLoggedIn(true);
+        data.is_cook
+          ? history.push("/create-recipe")
+          : history.push("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -60,6 +69,6 @@ const Login = () => {
       </form>
     </>
   );
-}
+};
 
 export default Login;
