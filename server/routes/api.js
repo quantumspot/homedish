@@ -12,7 +12,7 @@ router.post('/signup',
   User.signup,
   userController.createUser,
   cookController.addCook,
-  (req, res) => 
+  (req, res) =>
     res.status(201).send(res.locals.user)
 );
 
@@ -25,12 +25,12 @@ router.post('/login',
   )
 );
 
-router.post('/updateUser', 
+router.post('/updateUser',
   userController.getUserId,
   userController.updateUser
 );
 
-router.post('/addRecipe', 
+router.post('/addRecipe',
   recipeController.addRecipe,
   (req, res) => (
     res.status(201).send(res.locals.recipe)
@@ -39,7 +39,7 @@ router.post('/addRecipe',
 
 // router.post('/editRecipe')
 
-router.get('/getUser', 
+router.get('/getUser',
   userController.getUser,
   (req, res) => {
     res.status(200).json(res.locals.user)
