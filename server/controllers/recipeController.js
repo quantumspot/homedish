@@ -1,22 +1,13 @@
 const e = require('express');
 const db = require('../models/homeModels');
 
-const cookController = {};
-// CREATE TABLE recipes (
-//   recipe_id serial PRIMARY KEY,
-//   cook_id INT NOT NULL,
-//   title VARCHAR(50) NOT NULL,
-//   description VARCHAR(255) NOT NULL,
-//   allergens VARCHAR(255) NOT NULL,
-//   country_of_origin VARCHAR(50),
-//   meal_type VARCHAR(50),
-//   cook_id INT REFERENCES Cooks(cook_id),
-// );
-cookController.addRecipe = (req, res, next) => {
-  const { title, description, allergens, country_of_origin, meal_type, cook_id, photo_url } = req.body;
+const recipeController = {};
+
+recipeController.addRecipe = (req, res, next) => {
+  const { title, description, allergens, country_of_origin, meal_type, cook_id, image_url, price, servings } = req.body;
   
-  const text = `INSERT INTO Recipes(title, description, allergens, country_of_origin, meal_type, cook_id, photo_url) VALUES($1, $2, $3, $4, $5, $6)`;
-  const vals = [`${title}`, `${description}`, `${allergens}`, `${country_of_origin}`, `${meal_type}`, `${cook_id}`, `${photo_url}`];
+  const text = `INSERT INTO Recipes(title, description, allergens, country_of_origin, meal_type, cook_id, image_url, price, servings) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
+  const vals = [`${title}`, `${description}`, `${allergens}`, `${country_of_origin}`, `${meal_type}`, `${cook_id}`, `${image_url}`, `${price}`, `${servings}`];
   
   db
     .query(text, vals)
@@ -31,4 +22,14 @@ cookController.addRecipe = (req, res, next) => {
     ).then(() => next());
 
 }
-module.exports = cookController;
+
+
+// get all recipes
+
+// get recipe
+
+// delete recipe
+
+// edit recipe
+
+module.exports = recipeController;

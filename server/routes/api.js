@@ -7,6 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../auth/user.js');
 const passport = require('passport');
 require('../auth/passport');
+
 router.post('/signup',
   User.signup,
   userController.createUser,
@@ -18,10 +19,12 @@ router.post('/signup',
 router.post('/login',
   passport.authenticate('local'),
   userController.getUser,
+  User.createSignInToken,
   (req, res) => (
     res.status(200).send(res.locals.user)
   )
 );
+
 router.post('/updateUser',
   userController.getUserId,
   userController.updateUser
@@ -30,9 +33,11 @@ router.post('/updateUser',
 router.post('/addRecipe',
   recipeController.addRecipe,
   (req, res) => (
-    res.status(201)
+    res.status(201).send(res.locals.recipe)
   )
 );
+
+// router.post('/editRecipe')
 
 router.get('/getUser',
   userController.getUser,

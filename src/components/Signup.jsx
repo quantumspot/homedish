@@ -92,8 +92,7 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
       data.is_cook ? history.push('/create-recipe') : history.push('/dashboard');
     })
     .catch(err => console.log(err))
-    
-    
+  
   };
 
   return (
