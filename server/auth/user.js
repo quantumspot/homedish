@@ -31,5 +31,6 @@ const createToken = () => {
 }
 
 module.exports = {
-  signup
+  signup,
+  createToken
 }

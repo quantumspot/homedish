@@ -27,9 +27,9 @@ const MainContainer = () => {
           <div className="home-nav">
             {!isLoggedIn && <div className="login-link"><Link to="/login">Login</Link></div>}
             {!isLoggedIn && <div className="signup-link"><Link to="/signup">Sign Up</Link></div>}
-          </div>     
+          </div>
         {/*mockRecipesFromBackend
-//       .map((recipe) => <Link to={`/recipe-details/${recipe.id}`}>placeholder</Link>)*/}
+         .map((recipe) => <Link to={`/recipe-details/${recipe.id}`}>placeholder</Link>)*/}
 
           <div className="auth-cook-nav" style={{ display: "none"}}>
             <Link to="/create-recipe">Create a Recipe</Link>

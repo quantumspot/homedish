@@ -7,6 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../auth/user.js');
 const passport = require('passport');
 require('../auth/passport');
+
 router.post('/signup',
   User.signup,
   userController.createUser,
@@ -17,11 +18,15 @@ router.post('/signup',
 
 router.post('/login',
   passport.authenticate('local'),
+  async (req, res, next) => {
+    res.locals.token = await User.createToken()
+  },
   userController.getUser,
   (req, res) => (
     res.status(200).send(res.locals.user)
   )
 );
+
 router.post('/updateUser', 
   userController.getUserId,
   userController.updateUser

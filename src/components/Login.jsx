@@ -9,10 +9,10 @@ const Login = () => {
   const history = useHistory();
   const handleSignIn = () => {
   
-    fetch('/login', {
+    fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
-        email_address: email,
+        username: email,
         password: password
       }),
       headers: {
@@ -21,8 +21,7 @@ const Login = () => {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
-      history.push('/');
+      console.log(data)
     })
     .catch(err => {
       console.log(err)
