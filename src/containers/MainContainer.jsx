@@ -22,49 +22,60 @@ const MainContainer = () => {
   return (
     <>
       <div className="nav">
-          <div><Link to="/home"><h2>HomeDish</h2></Link></div>
-          <div>{user.name}</div>
-          <div className="home-nav">
-            {!isLoggedIn && <div className="login-link"><Link to="/login">Login</Link></div>}
-            {!isLoggedIn && <div className="signup-link"><Link to="/signup">Sign Up</Link></div>}
-          </div>     
+        <div>
+          <Link to="/home">
+            <h2>HomeDish</h2>
+          </Link>
+        </div>
+        <div>{user.name}</div>
+        <div className="home-nav">
+          {!isLoggedIn && (
+            <div className="login-link">
+              <Link to="/login">Login</Link>
+            </div>
+          )}
+          {!isLoggedIn && (
+            <div className="signup-link">
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          )}
+        </div>
         {/*mockRecipesFromBackend
 //       .map((recipe) => <Link to={`/recipe-details/${recipe.id}`}>placeholder</Link>)*/}
 
-          <div className="auth-cook-nav" style={{ display: "none"}}>
-            <Link to="/create-recipe">Create a Recipe</Link>
-            {/* <Link to="/search">My Active Recipes</Link>
+        <div className="auth-cook-nav" style={{ display: "none" }}>
+          <Link to="/create-recipe">Create a Recipe</Link>
+          {/* <Link to="/search">My Active Recipes</Link>
             <Link to="/search">Search</Link> */}
-          </div>
+        </div>
 
-          <div className="auth-nav" style={{ display: "none"}}>
-            <Link to="/search">Search</Link> 
-            {/* <Link to="/search">Profile</Link>  */}
-          </div>
+        <div className="auth-nav" style={{ display: "none" }}>
+          <Link to="/search">Search</Link>
+          {/* <Link to="/search">Profile</Link>  */}
+        </div>
       </div>
 
       <Switch>
         <Route path="/home">
-            <Landing />
+          <Landing />
         </Route>
         <Route path="/login">
-            <Login />
+          <Login setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
         </Route>
         <Route path="/signup">
-            <Signup setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
+          <Signup setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
         </Route>
         <Route path="/create-recipe">
-            <RecipeCard />
+          <RecipeCard />
         </Route>
 
         <Route path="/search">
-            <Search />
+          <Search />
         </Route>
-        <Route path="/recipe-details/:id">
-        </Route>
+        <Route path="/recipe-details/:id"></Route>
       </Switch>
     </>
-  )
+  );
 }
 
 export default MainContainer;
