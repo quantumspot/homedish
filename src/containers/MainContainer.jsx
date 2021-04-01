@@ -19,6 +19,7 @@ const MainContainer = () => {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  console.log(user);
   return (
     <>
       <div className="nav">
@@ -27,8 +28,8 @@ const MainContainer = () => {
             <h2>HomeDish</h2>
           </Link>
         </div>
-        <div>{user.name}</div>
         <div className="home-nav">
+          {isLoggedIn && <div style={{color: "green"}}>Welcome {user.name}!</div>}
           {!isLoggedIn && (
             <div className="login-link">
               <Link to="/login">Login</Link>
@@ -43,13 +44,13 @@ const MainContainer = () => {
         {/*mockRecipesFromBackend
 //       .map((recipe) => <Link to={`/recipe-details/${recipe.id}`}>placeholder</Link>)*/}
 
-        <div className="auth-cook-nav" style={{ display: "none" }}>
+        <div className="auth-cook-nav" style={{ display: 'none' }}>
           <Link to="/create-recipe">Create a Recipe</Link>
           {/* <Link to="/search">My Active Recipes</Link>
             <Link to="/search">Search</Link> */}
         </div>
 
-        <div className="auth-nav" style={{ display: "none" }}>
+        <div className="auth-nav" style={{ display: 'none' }}>
           <Link to="/search">Search</Link>
           {/* <Link to="/search">Profile</Link>  */}
         </div>

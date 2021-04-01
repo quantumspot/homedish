@@ -63,9 +63,9 @@ const Login = ({ setUser, setIsLoggedIn }) => {
             variant="outlined"
           />
         </p>
-        <Button color="primary" onClick={handleSignIn}>
-          Sign In
-        </Button>
+        <button className="log-in-button" onClick={handleSignIn}>
+          Log In
+        </button>
       </form>
     </>
   );
