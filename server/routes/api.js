@@ -18,10 +18,8 @@ router.post('/signup',
 
 router.post('/login',
   passport.authenticate('local'),
-  async (req, res, next) => {
-    res.locals.token = await User.createToken()
-  },
   userController.getUser,
+  User.createSignInToken,
   (req, res) => (
     res.status(200).send(res.locals.user)
   )
@@ -35,9 +33,11 @@ router.post('/updateUser',
 router.post('/addRecipe', 
   recipeController.addRecipe,
   (req, res) => (
-    res.status(201)
+    res.status(201).send(res.locals.recipe)
   )
 );
+
+// router.post('/editRecipe')
 
 router.get('/getUser', 
   userController.getUser,

@@ -2,7 +2,9 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
 const RecipeCard = () => {
-
+    // search by zip code 
+    // query db and find all users that are cooks with zip code = query zip
+    // return kitchen_name, cook_id, recipes that match cook_id, url, 
     return (
         <>
             <form>

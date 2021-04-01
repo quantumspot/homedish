@@ -14,6 +14,17 @@ const signup = (request, response, next) => {
     .catch((err) => console.error(err))
 }
 
+const createSignInToken = (req, res, next) => {
+
+  createToken()
+  .then(token => {
+    res.locals.token = token;
+    // res.cookie(token, )
+  })
+  .then(() => next())
+  .catch((err) => console.log(err))
+}
+
 const hashPassword = (password) => {
   return new Promise((resolve, reject) =>
     bcrypt.hash(password, 10, (err, hash) => {
@@ -32,5 +43,5 @@ const createToken = () => {
 
 module.exports = {
   signup,
-  createToken
+  createSignInToken
 }

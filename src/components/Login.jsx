@@ -27,6 +27,7 @@ const Login = ({ setUser, setIsLoggedIn }) => {
       })
       .then((data) => {
         // can change redirect route later
+        console.log(data)
         setUser(data);
         setIsLoggedIn(true);
         data.is_cook
