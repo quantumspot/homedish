@@ -14,12 +14,13 @@ const signup = (request, response, next) => {
     .catch((err) => console.error(err))
 }
 
-const createSignInToken = (req, res, next) => {
-
-  createToken()
-  .then(token => {
-    res.locals.token = token;
-    // res.cookie(token, )
+const createSignInToken =  async (req, res, next) => {
+  console.log(req.body)
+  await createToken()
+  .then((token) => {
+    
+    res.locals.token = token
+    // res.cookie('user token', token, { expires: new Date(Date.now() + 900000), httpOnly: true, secure: true });
   })
   .then(() => next())
   .catch((err) => console.log(err))

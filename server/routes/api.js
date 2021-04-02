@@ -37,6 +37,13 @@ router.post('/addRecipe',
   )
 );
 
+router.get('/getAllRecipes', 
+  recipeController.getAllRecipes,
+  (req, res) => (
+    res.status(200).send(res.locals.recipe)
+  )
+)
+
 // router.post('/editRecipe')
 
 router.get('/getUser',

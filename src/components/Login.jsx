@@ -7,6 +7,7 @@ const Login = ({ setUser, setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+
   const handleSignIn = () => {
     fetch('/api/login', {
       method: 'POST',

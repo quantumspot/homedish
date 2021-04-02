@@ -35,16 +35,17 @@ userController.getUser = (req, res, next) => {
   } else {
     email = req.body.username;
   }
-
+  
   const text = `SELECT name, email_address, address, phone_number, allergies, is_cook, last_login FROM Users WHERE email_address = $1;`
   const val = [`${email}`]
 
   db
     .query(text, val)
     .then(data => {
+      console.log(res.locals.token)
       res.locals.user = data.rows[0];
       res.locals.user.token = token;
-      console.log(res.locals.user)
+      console.log('getUser: ', res.locals.token)
     })
     .catch(e => {next({
       log: `userController.getUser: ${e}`,
