@@ -5,8 +5,8 @@ const recipeController = {};
 
 recipeController.addRecipe = (req, res, next) => {
   const { title, description, allergens, country_of_origin, meal_type, cook_id, image_url, price, servings } = req.body;
-  
-  const text = `INSERT INTO Recipes(title, description, allergens, country_of_origin, meal_type, cook_id, image_url, price, servings) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
+  console.log(req.body)
+  const text = `INSERT INTO Recipes(title, description, allergens, country_of_origin, meal_type, cook_id, image_url, price, servings) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
   const vals = [`${title}`, `${description}`, `${allergens}`, `${country_of_origin}`, `${meal_type}`, `${cook_id}`, `${image_url}`, `${price}`, `${servings}`];
   
   db
