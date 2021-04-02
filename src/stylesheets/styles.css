@@ -154,3 +154,14 @@ a {
 .recipe-card-row {
     margin-bottom: 15px;
 }
+
+/***** login/signup *****/
+.log-in-button, .sign-up-button {
+    font-size: 24px;
+    color: white;
+    border: none;
+    background-color: #4F9A46;
+    margin-left: 30px;
+    padding: 2px 15px 2px 15px;
+    border-radius: 20px;
+}
