@@ -7,7 +7,7 @@ cookController.addCook = (req, res, next) => {
   if (!res.locals.user.is_cook) return next();
 
   const cookData = {
-    cooking_experience: parseInt(req.body.cooking_experience),
+    cooking_experience: req.body.cooking_experience,
     kitchen_name: req.body.kitchen_name
   };
   
