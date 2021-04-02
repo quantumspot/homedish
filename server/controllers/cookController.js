@@ -51,16 +51,23 @@ cookController.getCook = (req, res, next) => {
 }
 
 cookController.getCooksByZip = (req, res, next) => {
-
   // works with state or zip
-  const { address } = req.body;
-  const text = `SELECT * from cooks where user_id IN (select user_id from Users where address LIKE '%$1%' AND is_cook = true)`;
-  const val = [`${address}`];
+  const { address } = req.query;
+  const text = `SELECT * FROM 
+                Recipes WHERE
+                cook_id IN (SELECT cook_id
+                            FROM cooks
+                            WHERE user_id IN (SELECT user_id
+                                              FROM users
+                                              WHERE address LIKE ('%' || $1 || '%') AND is_cook = true
+                                              )
+                            )`;
+  const val = [`${address}`]
 
   db  
     .query(text, val)
     .then(data => {
-      res.locals.cook = data.rows;
+      res.locals.cooks = data.rows;
     })
     .catch(e => {next({
       log: `cookController.getCookByZip: ${e}`,

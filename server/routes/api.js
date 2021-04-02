@@ -63,9 +63,8 @@ router.delete('/deleteUser',
 
 router.get('/getCooksRecipes',
   cookController.getCooksByZip,
-  
   (req, res) => {
-    res.status(200)
+    res.status(200).send(res.locals.cooks)
   }
 )
 
