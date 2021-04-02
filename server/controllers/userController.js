@@ -29,7 +29,7 @@ userController.createUser = (req, res, next) => {
 userController.getUser = (req, res, next) => {
   let email;
   const { token } = res.locals;
-
+  // get email if query
   if (req.query.email) { 
     email = req.query.email;
   } else {
@@ -42,10 +42,8 @@ userController.getUser = (req, res, next) => {
   db
     .query(text, val)
     .then(data => {
-      console.log(res.locals.token)
       res.locals.user = data.rows[0];
-      res.locals.user.token = token;
-      console.log('getUser: ', res.locals.token)
+      res.locals.user.token = token
     })
     .catch(e => {next({
       log: `userController.getUser: ${e}`,

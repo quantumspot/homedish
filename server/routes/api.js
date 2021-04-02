@@ -18,8 +18,8 @@ router.post('/signup',
 
 router.post('/login',
   passport.authenticate('local'),
-  userController.getUser,
   User.createSignInToken,
+  userController.getUser,
   (req, res) => (
     res.status(200).send(res.locals.user)
   )
