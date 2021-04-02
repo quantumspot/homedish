@@ -6,8 +6,8 @@ export const login = (token) => {
   localStorage.setItem('auth_token', token);
 }
 // removes the token key from local storage
-export const logout = (token) => {
-  localStorage.removeItem(token);
+export const logout = () => {
+  localStorage.removeItem('auth_token');
 }
 
 //checks to see if there is a valid token key in users local storage
