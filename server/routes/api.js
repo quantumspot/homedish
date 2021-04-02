@@ -61,5 +61,13 @@ router.delete('/deleteUser',
   }
 );
 
+router.get('/getCooksRecipes',
+  cookController.getCooksByZip,
+  
+  (req, res) => {
+    res.status(200)
+  }
+)
+
 
 module.exports = router;

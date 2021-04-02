@@ -49,4 +49,25 @@ cookController.getCook = (req, res, next) => {
     ).then(() => next());
 
 }
+
+cookController.getCooksByZip = (req, res, next) => {
+
+  // works with state or zip
+  const { address } = req.body;
+  const text = `SELECT * from cooks where user_id IN (select user_id from Users where address LIKE '%$1%' AND is_cook = true)`;
+  const val = [`${address}`];
+
+  db  
+    .query(text, val)
+    .then(data => {
+      res.locals.cook = data.rows;
+    })
+    .catch(e => {next({
+      log: `cookController.getCookByZip: ${e}`,
+      message: { err: 'cookController.getCookByZip: ERROR: Check server logs for details' }
+    })
+    }
+    ).then(() => next());
+
+}
 module.exports = cookController;
