@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom';
 import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const Signup = ({ setUser, setIsLoggedIn }) => {
   const [firstName, setFirstName] = useState("");
@@ -97,8 +100,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
 
   return (
     <>
-      <Button onClick={() => setUserType("false")}>Eat</Button>
-      <Button onClick={() => setUserType("true")}>Cook</Button>
+      <Button onClick={() => setUserType('false')}>Eat</Button>
+      <Button onClick={() => setUserType('true')}>Cook</Button>
       <form>
         <p>
           <TextField
@@ -108,12 +111,12 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="firstname"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            error={!!validationMap["first name"]}
-            helperText={validationMap["first name"]}
+            error={!!validationMap['first name']}
+            helperText={validationMap['first name']}
             variant="outlined"
-            style={{marginRight: "10px"}}
+            style={{ marginRight: '10px' }}
           />
-        {/* </p>
+          {/* </p>
         <p> */}
           <TextField
             label="Last Name"
@@ -122,8 +125,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="lastname"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            error={!!validationMap["last name"]}
-            helperText={validationMap["last name"]}
+            error={!!validationMap['last name']}
+            helperText={validationMap['last name']}
             variant="outlined"
           />
         </p>
@@ -135,8 +138,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            error={!!validationMap["email"]}
-            helperText={validationMap["email"]}
+            error={!!validationMap['email']}
+            helperText={validationMap['email']}
             variant="outlined"
           />
         </p>
@@ -148,8 +151,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            error={!!validationMap["password"]}
-            helperText={validationMap["password"]}
+            error={!!validationMap['password']}
+            helperText={validationMap['password']}
             variant="outlined"
           />
         </p>
@@ -161,8 +164,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="re-enter"
             value={reenterPassword}
             onChange={(e) => setReenterPassword(e.target.value)}
-            error={!!validationMap["re-enter password"]}
-            helperText={validationMap["re-enter password"]}
+            error={!!validationMap['re-enter password']}
+            helperText={validationMap['re-enter password']}
             variant="outlined"
           />
         </p>
@@ -175,8 +178,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="phoneNumber"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            error={!!validationMap["phoneNumber"]}
-            helperText={validationMap["phoneNumber"]}
+            error={!!validationMap['phoneNumber']}
+            helperText={validationMap['phoneNumber']}
             variant="outlined"
           />
         </p>
@@ -188,10 +191,10 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="street"
             value={street}
             onChange={(e) => setStreet(e.target.value)}
-            error={!!validationMap["street"]}
-            helperText={validationMap["street"]}
+            error={!!validationMap['street']}
+            helperText={validationMap['street']}
             variant="outlined"
-            style={{width: "500px"}}
+            style={{ width: '500px' }}
           />
         </p>
         <p>
@@ -202,8 +205,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            error={!!validationMap["city"]}
-            helperText={validationMap["city"]}
+            error={!!validationMap['city']}
+            helperText={validationMap['city']}
             variant="outlined"
           />
         </p>
@@ -215,8 +218,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="zip"
             value={zip}
             onChange={(e) => setZip(e.target.value)}
-            error={!!validationMap["zip"]}
-            helperText={validationMap["zip"]}
+            error={!!validationMap['zip']}
+            helperText={validationMap['zip']}
             variant="outlined"
           />
         </p>
@@ -228,25 +231,38 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="state"
             value={state}
             onChange={(e) => setState(e.target.value)}
-            error={!!validationMap["state"]}
-            helperText={validationMap["state"]}
+            error={!!validationMap['state']}
+            helperText={validationMap['state']}
             variant="outlined"
           />
         </p>
         <p>
-          <TextField
+          {/* <TextField
             label="Allergies"
             type="text"
             id="allergies"
             name="allergies"
             value={allergies}
             onChange={(e) => setAllergies(e.target.value)}
-            error={!!validationMap["allergies"]}
-            helperText={!!validationMap["allergies"]}
+            error={!!validationMap['allergies']}
+            helperText={!!validationMap['allergies']}
             variant="outlined"
-          />
+          /> */}
+          <InputLabel>Allergies</InputLabel>
+          <Select
+            value={allergies}
+            onChange={(e) => setAllergies(e.target.value)}
+            style={{ width: '200px' }}
+          >
+            <MenuItem value={'Nuts'}>Lactose Intolerant</MenuItem>
+            <MenuItem value={'Shellfish'}>Peanuts</MenuItem>
+            <MenuItem value={'Dairy'}>TreeNuts</MenuItem>
+            <MenuItem value={'Nuts'}>Shellfish</MenuItem>
+            <MenuItem value={'Shellfish'}>Soy</MenuItem>
+            <MenuItem value={'Dairy'}>Wheat</MenuItem>
+          </Select>
         </p>
-        {is_cook === "true" && (
+        {is_cook === 'true' && (
           <div>
             <p>
               <TextField
@@ -259,8 +275,8 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
                 error={!experience}
                 helperText={
                   experience
-                    ? ""
-                    : "Let your eaters know if you are a novice cook or a MasterChef."
+                    ? ''
+                    : 'Let your eaters know if you are a novice cook or a MasterChef.'
                 }
                 variant="outlined"
               />
@@ -275,7 +291,7 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
                 onChange={(e) => setKitchenName(e.target.value)}
                 error={!kitchenName}
                 helperText={
-                  kitchenName ? "" : "This is the name your eaters will see."
+                  kitchenName ? '' : 'This is the name your eaters will see.'
                 }
                 variant="outlined"
               />
@@ -289,19 +305,21 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
             name="profile-picture"
             // value={profilePicture}
             onChange={(e) => setProfilePicture(e.target.files[0])}
-            style={{display: "none"}}
+            style={{ display: 'none' }}
           />
-          <label htmlFor="profile-picture" style={{border: '1px solid grey'}}>Upload a photo</label>
+          <label htmlFor="profile-picture" style={{ border: '1px solid grey' }}>
+            Upload a photo
+          </label>
           {profilePicture && (
             <img
               src={URL.createObjectURL(profilePicture)}
-              style={{ width: "200px", height: "200px" }}
+              style={{ width: '200px', height: '200px' }}
             />
           )}
         </p>
-        <Button color="primary" onClick={handleSignup}>
+        <button className="sign-up-button" onClick={handleSignup}>
           Sign Up
-        </Button>
+        </button>
       </form>
     </>
   );
