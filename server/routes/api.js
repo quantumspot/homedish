@@ -18,8 +18,8 @@ router.post('/signup',
 
 router.post('/login',
   passport.authenticate('local'),
-  userController.getUser,
   User.createSignInToken,
+  userController.getUser,
   (req, res) => (
     res.status(200).send(res.locals.user)
   )
@@ -37,6 +37,13 @@ router.post('/addRecipe',
   )
 );
 
+router.get('/getAllRecipes', 
+  recipeController.getAllRecipes,
+  (req, res) => (
+    res.status(200).send(res.locals.recipe)
+  )
+)
+
 // router.post('/editRecipe')
 
 router.get('/getUser',
@@ -53,6 +60,13 @@ router.delete('/deleteUser',
     res.status(200)
   }
 );
+
+router.get('/getCooksRecipes',
+  cookController.getCooksByZip,
+  (req, res) => {
+    res.status(200).send(res.locals.cooks)
+  }
+)
 
 
 module.exports = router;

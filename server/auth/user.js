@@ -15,11 +15,10 @@ const signup = (request, response, next) => {
 }
 
 const createSignInToken = (req, res, next) => {
-
+  
   createToken()
-  .then(token => {
-    res.locals.token = token;
-    // res.cookie(token, )
+  .then((token) => {
+    res.locals.token = token
   })
   .then(() => next())
   .catch((err) => console.log(err))

@@ -7,7 +7,7 @@ import Search from '../components/Search.jsx';
 import RecipeDetails from '../components/RecipeDetails.jsx';
 import PrivateRoute from '../components/privateRoute';
 import PublicRoute from '../components/publicRoute';
-import Homepage from '../components/HomePage';
+import HomePage from '../components/HomePage';
 
 import { Switch, Route, Link, withRouter } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const MainContainer = () => {
 
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   return (
     <>
       <div className="nav">
@@ -41,10 +41,9 @@ const MainContainer = () => {
               <Link to="/signup">Sign Up</Link>
             </div>
           )}
-        
+        </div>
         {/*mockRecipesFromBackend
          .map((recipe) => <Link to={`/recipe-details/${recipe.id}`}>placeholder</Link>)*/}
-
         <div className="auth-cook-nav" style={{ display: 'none' }}>
           <Link to="/create-recipe">Create a Recipe</Link>
           {/* <Link to="/search">My Active Recipes</Link>
@@ -59,12 +58,17 @@ const MainContainer = () => {
 
       <Switch>
         <PublicRoute restricted={false} component={Landing} path="/" exact />
-        <PublicRoute restricted={true} component={Login} path="/login" exact />
-        <PublicRoute restricted={true} component={Signup} setUser={setUser} setIsLoggedIn={setIsLoggedIn} path="/signup" exact />
-        <PrivateRoute component={Homepage} path="/home" exact />
+        <PublicRoute restricted={true} component={Login} path="/login" exact>
+          <Login setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>
+        </PublicRoute>
+        <PublicRoute restricted={true} component={Signup} path="/signup" exact>
+          <Signup setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
+        </PublicRoute>
+        {/* <PrivateRoute component={Homepage} path="/home" exact /> */}
+        <PrivateRoute component={HomePage} path="/dashboard" exact/>
         <PrivateRoute component={RecipeCard} path="/create-recipe" exact />
         <PrivateRoute component={Search} path="/search" exact />
-        <PrivateRoute component={Homepage} path="/recipe-details/:id" exact />
+        <PrivateRoute component={HomePage} path="/recipe-details/:id" exact />
       </Switch>
     </>
   );

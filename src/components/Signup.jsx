@@ -26,7 +26,9 @@ const Signup = ({ setUser, setIsLoggedIn }) => {
   const [validationMap, setValidationMap] = useState({});
   const history = useHistory();
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    
     const fields = {
       "first name": firstName,
       "last name": lastName,
